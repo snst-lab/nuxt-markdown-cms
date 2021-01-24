@@ -21,13 +21,13 @@ This is a template of the Markdown CMS.
 #### Option 1. SSH
 
 ```sh
- $ git clone -b template --depth 1 git@github.com:/nuxt-markdown-cms.git <project name>
+ $ git clone -b template --depth 1 git@github.com:snst-lab/nuxt-markdown-cms.git <project name>
 ```
 
 #### Option 2. HTTPS
 
 ```sh
- $ git clone -b template --depth 1 https://github.com/nuxt-markdown-cms.git <project name>
+ $ git clone -b template --depth 1 https://github.com/snst-lab/nuxt-markdown-cms.git <project name>
 ```
 
 ### 2. Change Directory
