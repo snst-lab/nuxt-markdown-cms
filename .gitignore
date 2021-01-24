@@ -1,0 +1,23 @@
+# Logs
+/logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Dependency directories
+node_modules/*
+
+# dotenv environment variables file
+.env*
+
+# lock file
+package-lock.json
+yarn.lock
+
+# vscode setting files
+.vscode/*
+
+# @nuxt/content articles
+client/content/user/*
+client/static/img/user/*

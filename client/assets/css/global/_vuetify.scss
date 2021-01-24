@@ -1,0 +1,168 @@
+//========================
+//  reset
+//========================
+.v-application ul, .v-application ol{
+    padding-left: 0px;
+}
+
+.row{
+  margin:0!important;
+}
+
+
+// =========================
+// navigation
+// =========================
+.v-navigation-drawer__border{
+  display: none
+}
+
+
+  // =========================
+// card
+// =========================
+.v-card{
+  border-radius:0px!important;
+  box-shadow:none!important;
+}
+
+.v-card__title{
+  display: flex;
+  padding-left:30px;
+  padding-right:30px;
+  font-size:18px!important;
+  font-weight: bold;
+  letter-spacing: 2px;
+  font-weight: 400;
+  color:white;
+}
+
+.v-card__title::before{
+  content:"";
+  display: block;
+  width: 7px;
+  height: 1em;
+  margin-right:10px;
+}
+
+.v-card__subtitle{
+  display: flex;
+  background-color: #fafafd;
+  margin-top:0!important;
+  text-align: left;
+  padding-top:10px!important;
+  padding-bottom:10px!important;
+  padding-left:20px;
+  padding-right:20px;
+}
+
+
+
+// =========================
+// stepper
+// =========================
+.v-stepper{
+  border-radius:0px!important;
+  box-shadow:none!important;
+}
+
+.v-stepper__content{
+  padding:0!important;
+}
+
+// =========================
+// inputs
+// =========================
+.v-text-field--enclosed.v-text-field--outlined textarea,
+.v-text-field--enclosed.v-text-field--outlined input{
+    margin-top: 5px!important;
+    margin-bottom: 5px!important;
+  }
+
+.v-input__control > .v-input__slot{
+    margin-bottom:2px!important;
+    min-height: 0!important;
+  }
+
+.v-input__control > .v-text-field__details{
+    margin:0px!important;
+    height:0!important;
+    min-height:0!important;
+    padding:0!important;
+  }
+
+.static .v-input__slot > fieldset{
+  border:none!important;
+}
+
+.static .v-input__slot{
+  pointer-events: none;
+}
+
+.v-text-field__details{
+  height:0;
+}
+
+.static .v-text-field__details{
+  display: none
+}
+
+
+// =========================
+// validation errors
+// =========================
+.v-text-field__details .error--text{
+  position:absolute;
+  top:-25px;
+  right:10px;
+  background-color: red;
+  border-radius: 5px;
+  padding:0 20px;
+  box-shadow:2px 2px 3px #ccc;
+  display: flex;
+  align-items: center;
+  
+  &::before{
+    content:"!";
+    text-align: center;
+    background:white;
+    border-radius:50%;
+    height: 16px;
+    width:16px;
+    font-size:10px;
+    color:red;
+  }
+  &::after{
+    content:"▼";
+    display:block;
+    position: absolute;
+    bottom:-10px;
+    left:10px;
+    color:red;
+    transform:skewX(-20deg)
+  }
+  & .v-messages__message{
+    padding:5px!important;
+    color:white;
+    transition: 0s!important;
+  }
+}
+
+// =============================
+// validation error positioning
+// ==============================
+.v-input{
+  position:relative;
+
+}
+
+.input-col2,
+.input-col3{
+  position:relative;
+}
+
+.input-col2 .v-input,
+.input-col3 .v-input{
+  position: static;
+}
+

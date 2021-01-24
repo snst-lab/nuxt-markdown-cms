@@ -1,0 +1,15 @@
+$color-list: (
+  theme: #00aacc,
+  black1: #333,
+  black2: #555,
+  black3: #888,
+  gray1: #aaa,
+  gray2: #ccc,
+  smoke1: #fafafa,
+  smoke2: #f5f5f5,
+  white1: #fefefe,
+);
+
+@function color($type:"theme"){
+  @return map-get($color-list,$type);
+}

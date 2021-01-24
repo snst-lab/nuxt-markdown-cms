@@ -1,0 +1,28 @@
+//Noto Sans CJK
+@font-face {
+  font-family: 'Noto Sans CJK';
+  font-weight: 700;
+  font-style: normal;
+  src: url('~assets/font/NotoSansCJKjp-Bold.min.woff2') format('woff2'),
+       url('~assets/font/NotoSansCJKjp-Bold.min.woff') format('woff'),
+       url('~assets/font/NotoSansCJKjp-Bold.min.otf') format('opentype');
+}
+@font-face {
+  font-family: 'Noto Sans CJK';
+  font-weight: 400;
+  font-style: normal;
+  src: url('~assets/font/NotoSansCJKjp-Regular.min.woff2') format('woff2'),
+       url('~assets/font/NotoSansCJKjp-Regular.min.woff') format('woff'),
+       url('~assets/font/NotoSansCJKjp-Regular.min.otf') format('opentype');
+}
+
+$font-list:(
+  jp: "Noto Sans CJK",
+  en: "Roboto",
+);
+
+@function font($arg:"jp"){
+  @return map-get($font-list,$arg);
+}
+
+
