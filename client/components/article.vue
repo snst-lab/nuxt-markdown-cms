@@ -80,11 +80,14 @@ export default defineComponent({
 </script>
 <style lang="scss" module>
 .wrap {
-  padding: 0 0 300px;
+  padding: 0 0 150px;
+  margin: 0 0 150px;
   position: relative;
   @include sm() {
-    padding: 0 0 100px;
+    padding: 0 0 50px;
+    margin: 0 0 50px;
   }
+  border-bottom:2px solid color('smoke2');
 }
 .anchor {
   position: absolute;
@@ -164,6 +167,7 @@ export default defineComponent({
 }
 .tags {
   display: flex;
+  flex-flow:row wrap;
   padding: 5px 0 10px !important;
   & > li {
     margin-right: 1em;
