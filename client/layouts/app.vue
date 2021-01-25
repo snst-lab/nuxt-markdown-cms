@@ -11,7 +11,7 @@
         :class="$style.tree"
         v-model="tree"
         :open="userMeta.menu_tags.split(',')"
-        :items="items"
+        :items="menuItems"
         activatable
         item-key="title"
         open-on-click
@@ -130,27 +130,54 @@ export default defineComponent({
     Popup,
   },
   async middleware({ app, store }) {
-    const { $axios, $content } = app;
-    store.commit("SET", { key: "userId", value: 1 });
-    // fetch user meta
-    const userMeta = await $content(`user/${store.state.userId}/meta`).fetch();
-    // save to store
-    store.commit("SET", { key: "userMeta", value: userMeta });
-    // fetch posts
-    let posts = await $content(`user/${store.state.userId}/posts`).fetch();
+    const { $axios, $content } = app
+    store.commit("SET", { key: "userId", value: 1 })
+    
+    // fetch markdowns
+    let userMeta = await $content(`user/${store.state.userId}/meta`).fetch()
+    let posts = await $content(`user/${store.state.userId}/posts`).fetch()
+    
     // process posts
     posts = posts.filter((e,i) => !!e.public )
     posts.sort((a,b) => b.id - a.id)
+    // add hash for id attribute
     posts.some((e, i) => {
-      e.hash = "x" + crypto.MD5(e.slug).toString();
+      e.hash = "x" + crypto.MD5(e.slug).toString()
     });
+
+    // extract menuTags
+    const menuTags = userMeta.menu_tags.split(",")
+    
+    // reorder menuItems & posts acording to menuTags order
+    const menuItems = []
+    const postsBuffer =[]
+
+    menuTags.some((e, i) => {
+      menuItems.push({
+        title: e,
+        children: [],
+      })
+      posts.some((f, j) => {
+        if (f.tags.split(",").includes(e)) {
+          postsBuffer.push(f);
+          menuItems[i].children.push({
+            link: f.hash,
+            title: f.slug,
+            icon: "txt",
+          })
+        }
+      })
+    })
+
     // save to store
-    store.commit("SET", { key: "posts", value: posts });
+    store.commit("SET", { key: "userMeta", value: userMeta })
+    store.commit("SET", { key: "menuItems", value: menuItems })
+    store.commit("SET", { key: "posts", value: postsBuffer })
   },
   setup(props, context) {
-    const { root, emit } = context;
-    const { store, route, params, query, env, redirect } = root.context;
-    const { state, commit, dispach } = store;
+    const { root, emit } = context
+    const { store, route, params, query, env, redirect } = root.context
+    const { state, commit, dispach } = store
     const {
       $axios,
       $content,
@@ -161,7 +188,7 @@ export default defineComponent({
       $scrollTo,
       $dayjs,
       $set,
-    } = root;
+    } = root
 
     /**
      * Define params and functions to use in DOM
@@ -170,22 +197,22 @@ export default defineComponent({
       env: env,
       drawerLeft: ref(true),
       drawerRight: ref(true),
-      posts: reactive([]),
+      posts: state.posts,
       tree: [],
       icons: {
         txt: "mdi-file-document-outline",
       },
-      items: reactive([]),
       userMeta: state.userMeta,
+      menuItems: state.menuItems,
       scrollToHash: (hash) => {
         if (!$vuetify.breakpoint.mdAndUp) {
-          $set(self.drawerLeft, false);
-          $set(self.drawerRight, false);
+          $set(self.drawerLeft, false)
+          $set(self.drawerRight, false)
         }
         if (location.pathname === "/") {
-          $scrollTo(hash, 500, { offset: 0 });
+          $scrollTo(hash, 500, { offset: 0 })
         } else {
-          $router.push({ name: "index", hash: hash });
+          $router.push({ name: "index", hash: hash })
         }
       },
     };
@@ -195,39 +222,12 @@ export default defineComponent({
        * Hide drawer
        */
       if (!$vuetify.breakpoint.mdAndUp) {
-        $set(self.drawerLeft, false);
-        $set(self.drawerRight, false);
+        $set(self.drawerLeft, false)
+        $set(self.drawerRight, false)
       }
-      /**
-       * Fetch post
-       */
-      $set(self.posts, state.posts);
-      console.log(self.userMeta);
-      /**
-       * Fill treeview menu
-       */
-      const menuTags = self.userMeta.menu_tags.split(",")
-      const items = []
-
-      menuTags.some((e, i) => {
-        items.push({
-          title: e,
-          children: [],
-        });
-        self.posts.some((f, j) => {
-          if (f.tags.split(",").includes(e)) {
-            items[i].children.push({
-              link: f.hash,
-              title: f.slug,
-              icon: "txt",
-            });
-          }
-        });
-      });
-      $set(self.items, items);
     });
 
-    return self;
+    return self
   },
 });
 </script>
